@@ -1,5 +1,5 @@
  # (1)
- FROM python:latest
+FROM python:alpine
 
  # Create non-root user and set permissions (2)
  RUN useradd -m appuser && \
