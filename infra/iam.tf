@@ -37,8 +37,8 @@ resource "aws_iam_role_policy" "ecs_s3_access" {
           "s3:DeleteObject"
         ]
         Resource = [
-          "arn:aws:s3:::rgers3.tfstate-backend.com",
-          "arn:aws:s3:::rgers3.tfstate-backend.com/*",
+          "arn:aws:s3:::ce994.tfstate-backend.com",
+          "arn:aws:s3:::ce994.tfstate-backend.com/*",
           "arn:aws:dynamodb:us-east-1:255945442255:table/terraform-state-locks"
         ]
       }

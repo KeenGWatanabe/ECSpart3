@@ -21,6 +21,6 @@ ECSpart2/
 │           ├── security.tf      # Security groups
 │           └── variables.tf     # ECS module variables
 |___ app /
-     ├── app.py
+     ├── Nodejs app
      ├── Dockerfile
-     └── requirements.txt
+     └── docker-compose.yaml

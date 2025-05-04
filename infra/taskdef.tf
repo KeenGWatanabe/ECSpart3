@@ -8,8 +8,8 @@ resource "aws_cloudwatch_log_group" "ecs_logs" {
   name = local.log_group_name
 }
 
-resource "aws_ecs_task_definition" "flask_app_task" {
-  family = "flask-app-xray-family"
+resource "aws_ecs_task_definition" "g4app_app_task" {
+  family = "g4app-app-xray-family"
   depends_on = [ aws_cloudwatch_log_group.ecs_logs ]
   network_mode             = "awsvpc"       # Required for Fargate
   requires_compatibilities = ["FARGATE"]    # Explicitly declare Fargate
@@ -21,8 +21,8 @@ resource "aws_ecs_task_definition" "flask_app_task" {
 
   container_definitions = jsonencode([
     {
-      "name"              : "flask-app",
-      "image"             :  "${aws_ecr_repository.app.repository_url}:latest" #"255945442255.dkr.ecr.us-east-1.amazonaws.com/rger-flask-xray:latest", // Your manually pushed image
+      "name"              : "g4app-app",
+      "image"             :  "${aws_ecr_repository.app.repository_url}:latest" #"255945442255.dkr.ecr.us-east-1.amazonaws.com/rger-g4app-xray:latest", // Your manually pushed image
       "memory"            : 128,
       "cpu"               : 256,
       "essential"         : true,
@@ -43,7 +43,7 @@ resource "aws_ecs_task_definition" "flask_app_task" {
       "environment" : [
         {
           "name"  : "SERVICE_NAME",
-          "value" : "rger-flask-xray-service"
+          "value" : "rger-g4app-xray-service"
         }
       ],
       "secrets" : [
@@ -52,8 +52,8 @@ resource "aws_ecs_task_definition" "flask_app_task" {
           "valueFrom" : aws_ssm_parameter.app_config.arn
         },
         {
-          "name"      : "MY_DB_PASS",
-          "valueFrom" : aws_secretsmanager_secret.db_pass.arn
+          "name"      : "MY_TASKMGR_PASS",
+          "valueFrom" : aws_secretsmanager_secret.taskmgr_pass.arn
         }
       ]
     },
@@ -72,7 +72,7 @@ resource "aws_ecs_task_definition" "flask_app_task" {
       "logConfiguration": {
         "logDriver" : "awslogs",
         "options"   : {
-          "awslogs-group"         :  local.log_group_name,#"/ecs/flask-app-xray",
+          "awslogs-group"         :  local.log_group_name,#"/ecs/g4app-app-xray",
           "awslogs-region"        : "us-east-1",
           "awslogs-stream-prefix" : "xray-sidecar"
         }
@@ -82,10 +82,10 @@ resource "aws_ecs_task_definition" "flask_app_task" {
 }
 
 # Link Task Definition to ECS Services  
-resource "aws_ecs_service" "flask_app_service" {
-  name            = "flask-app-xray-service"
+resource "aws_ecs_service" "g4app_app_service" {
+  name            = "g4app-app-xray-service"
   cluster         =  module.ecs.cluster_id    // Reference the cluster ID from the ECS module output
-  task_definition = aws_ecs_task_definition.flask_app_task.arn
+  task_definition = aws_ecs_task_definition.g4app_app_task.arn
   desired_count   = 1
   launch_type = "FARGATE"
 
@@ -98,7 +98,7 @@ resource "aws_ecs_service" "flask_app_service" {
   lifecycle {
     ignore_changes = [ task_definition, desired_count ]
   }
-  depends_on = [aws_ecs_task_definition.flask_app_task]
+  depends_on = [aws_ecs_task_definition.g4app_app_task]
   
 }
 
