@@ -47,7 +47,11 @@ terraform init
 terraform plan
 terraform apply -target=module.vpc
 ```
+# Step 11: Accessing your Service
+You may access your application using the public IP of your ECS Task:
+curl 3.92.225.20:8080
 
+```
 These steps in the AWS Console (ECS cluster > Services > Create) are for creating an Amazon ECS (Elastic Container Service) **Service** that will run and maintain a specified number of instances (tasks) of your containerized application. Here's a breakdown of what each configuration does:
 
 ### **1. Application Type: Service**
