@@ -91,24 +91,24 @@ resource "aws_ecr_repository" "app" {
   name = "${local.prefix}-ecr"
  }
 
-# --- SSM & Secrets Manager ---
-resource "aws_ssm_parameter" "app_config" {
-  name  = "/${local.prefix}/config"
-  type  = "String"
-  value = "MySSMConfig"
-  #overwrite = true
-}
+# # --- SSM & Secrets Manager ---
+# resource "aws_ssm_parameter" "app_config" {
+#   name  = "/${local.prefix}/config"
+#   type  = "String"
+#   value = "MySSMConfig"
+#   #overwrite = true
+# }
 
-resource "aws_secretsmanager_secret" "taskmgr_pass" {
-  name = "/${local.prefix}/taskmgr_pass"
-}
+# resource "aws_secretsmanager_secret" "taskmgr_pass" {
+#   name = "/${local.prefix}/taskmgr_pass"
+# }
 
-resource "aws_secretsmanager_secret_version" "taskmgr_pass_version" {
-  secret_id     = aws_secretsmanager_secret.taskmgr_pass.id
-  secret_string = jsonencode({
-    password = "P@ssw0rd"
-  })
-}
+# resource "aws_secretsmanager_secret_version" "taskmgr_pass_version" {
+#   secret_id     = aws_secretsmanager_secret.taskmgr_pass.id
+#   secret_string = jsonencode({
+#     password = "P@ssw0rd"
+#   })
+# }
 
 
 
@@ -147,7 +147,7 @@ module "ecs" {
           
           # Add required fields
           environment = [] 
-          secrets     = []
+          # secrets     = []
           mount_points = []
           volumes_from = []
         }

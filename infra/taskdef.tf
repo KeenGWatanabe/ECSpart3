@@ -46,16 +46,16 @@ resource "aws_ecs_task_definition" "g4app_app_task" {
           "value" : "rger-g4app-xray-service"
         }
       ],
-      "secrets" : [
-        {
-          "name"      : "MY_APP_CONFIG",
-          "valueFrom" : aws_ssm_parameter.app_config.arn
-        },
-        {
-          "name"      : "MY_TASKMGR_PASS",
-          "valueFrom" : aws_secretsmanager_secret.taskmgr_pass.arn
-        }
-      ]
+      # "secrets" : [
+      #   # {
+      #   #   "name"      : "MY_APP_CONFIG",
+      #   #   "valueFrom" : aws_ssm_parameter.app_config.arn
+      #   # },
+      #   # {
+      #   #   "name"      : "MY_TASKMGR_PASS",
+      #   #   "valueFrom" : aws_secretsmanager_secret.taskmgr_pass.arn
+      #   # }
+      # ]
     },
     {
       "name"              : "xray-sidecar",
