@@ -3,7 +3,7 @@ status: last update was dockerfile, may not be the case, "image failure investig
 run tf-backend
 https://github.com/KeenGWatanabe/tf-backend.git
 
-`Terraforming would run step 5-10 from this repo`
+`Terraforming would run step 1-2, 5-10 from this repo`
 # 3.5 Container Orchestration w ECS2
 https://docs.google.com/document/d/1HkjQakCw2Db82e5dPbWzfqm_BnWK0xHMiWXixuojW4k/edit?tab=t.0
 
@@ -20,7 +20,7 @@ https://docs.google.com/document/d/1HkjQakCw2Db82e5dPbWzfqm_BnWK0xHMiWXixuojW4k/
   # if rerun terraform (statefile)
   terraform refresh 
 
-`Follow steps 1 - 4 from this Doc sheet (build and push image to created ECR create 'myapp-ecr')`
+`Follow steps 3 - 4 from this Doc sheet (build and push image to created ECR create 'myapp-ecr')`
 cd /app
 # 3.5 Container Orchestration w ECS2
 https://docs.google.com/document/d/1HkjQakCw2Db82e5dPbWzfqm_BnWK0xHMiWXixuojW4k/edit?tab=t.0
