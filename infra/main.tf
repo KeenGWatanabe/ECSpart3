@@ -87,10 +87,9 @@ resource "aws_security_group" "ecs" {
 }
 
 # --- ECR Repository ---
-# resource "aws_ecr_repository" "app" {
-#  name = "${local.prefix}-ecr"
-  
-# }
+resource "aws_ecr_repository" "app" {
+  name = "${local.prefix}-ecr"
+ }
 
 # --- SSM & Secrets Manager ---
 resource "aws_ssm_parameter" "app_config" {
