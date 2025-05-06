@@ -11,7 +11,7 @@ terraform {
 provider "aws" {
   region = "us-east-1" # Change if needed
 }
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "current" {
 data "aws_region" "current" {}
 data "aws_availability_zones" "available" {  # <-- This was missing
   state = "available"
