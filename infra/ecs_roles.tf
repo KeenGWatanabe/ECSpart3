@@ -28,10 +28,6 @@ resource "aws_iam_role_policy_attachment" "secrets_manager" {
   policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
 }
 
-resource "aws_iam_role_policy_attachment" "ssm_readonly" {
-  role       = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
-}
 resource "aws_iam_role_policy_attachment" "cloudwatch_logs" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"  # Broad permissions for testing
@@ -52,6 +48,22 @@ resource "aws_iam_role" "ecs_task_role" {
     }]
   })
 }
+
+# Attach Secrets Manager read permissions to the ECS task role
+resource "aws_iam_role_policy" "ecs_secrets" {
+  role   = aws_iam_role.ecs_execution_role.name
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect   = "Allow",
+      Action   = ["secretsmanager:GetSecretValue"],
+      Resource = ["arn:aws:secretsmanager:*:1234567890:secret:db/mongo_uri*"]
+    }]
+  })
+}
+
+
+
 
 resource "aws_iam_role_policy_attachment" "xray_access" {
   role       = aws_iam_role.ecs_task_role.name

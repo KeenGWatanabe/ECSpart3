@@ -11,7 +11,7 @@ terraform {
 provider "aws" {
   region = "us-east-1" # Change if needed
 }
-data "aws_caller_identity" "current" {
+data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 data "aws_availability_zones" "available" {  # <-- This was missing
   state = "available"
@@ -69,20 +69,21 @@ resource "aws_route_table_association" "public" {
 resource "aws_security_group" "ecs" {
   name        = "${local.prefix}-ecs-sg"
   vpc_id      = aws_vpc.main.id
-  description = "Allow inbound HTTP traffic"
+  description = "Allow inbound to Nodejs, outbound to MongoDB"
 
   ingress {
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = 5000
+    to_port     = 5000
     protocol    = "tcp"
+    security_groups = [aws_security_group.alb_sg.id] # Allow traffic from ALB security group
     cidr_blocks = ["0.0.0.0/0"] # Restrict in production!
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 27017 # MongoDB default port
+    to_port     = 27017
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]
   }
 }
 

@@ -1,25 +1,25 @@
 
-# resource "aws_iam_role_policy" "ecs_secrets_access" {
-#   name = "ecs-secrets-access"
-#   role = aws_iam_role.ecs_task_execution_role.id
+resource "aws_iam_role_policy" "ecs_secrets_access" {
+  name = "ecs-secrets-access"
+  role = aws_iam_role.ecs_task_execution_role.id
 
-#   policy = jsonencode({
-#     Version = "2012-10-17"
-#     Statement = [
-#       {
-#         Effect = "Allow"
-#         Action = [
-#           "secretsmanager:GetSecretValue",
-#           "secretsmanager:DescribeSecret"
-#         ]
-#         Resource = [
-#           "arn:aws:secretsmanager:us-east-1:255945442255:secret:${local.prefix}/db_pass*",
-#           # Add other secret ARNs if needed
-#         ]
-#       }
-#     ]
-#   })
-# }
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret"
+        ]
+        Resource = [
+          "arn:aws:secretsmanager:us-east-1:255945442255:secret:${local.prefix}/db_pass*",
+          # Add other secret ARNs if needed
+        ]
+      }
+    ]
+  })
+}
 
 resource "aws_iam_role_policy" "ecs_s3_access" {
   name_prefix = "${local.prefix}-s3-access"
