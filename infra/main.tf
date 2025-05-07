@@ -75,7 +75,6 @@ resource "aws_security_group" "ecs" {
     from_port   = 5000
     to_port     = 5000
     protocol    = "tcp"
-    security_groups = [aws_security_group.alb_sg.id] # Allow traffic from ALB security group
     cidr_blocks = ["0.0.0.0/0"] # Restrict in production!
   }
 
@@ -100,16 +99,16 @@ resource "aws_ecr_repository" "app" {
 #   #overwrite = true
 # }
 
-# resource "aws_secretsmanager_secret" "taskmgr_pass" {
-#   name = "/${local.prefix}/taskmgr_pass"
-# }
+resource "aws_secretsmanager_secret" "taskmgr_pass" {
+  name = "/${local.prefix}/taskmgr_pass"
+}
 
-# resource "aws_secretsmanager_secret_version" "taskmgr_pass_version" {
-#   secret_id     = aws_secretsmanager_secret.taskmgr_pass.id
-#   secret_string = jsonencode({
-#     password = "P@ssw0rd"
-#   })
-# }
+resource "aws_secretsmanager_secret_version" "taskmgr_pass_version" {
+  secret_id     = aws_secretsmanager_secret.taskmgr_pass.id
+  secret_string = jsonencode({
+    password = "P@ssw0rd"
+  })
+}
 
 
 
@@ -175,6 +174,5 @@ output "ecs_service_name" {
 }
 
 output "container_name" {
-  value       = var.container_name
-  description = "Name of the deployed container"
+  value = var.container_name #reused here
 }

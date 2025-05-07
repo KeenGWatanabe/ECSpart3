@@ -8,7 +8,7 @@ resource "aws_cloudwatch_log_group" "ecs_logs" {
   name = local.log_group_name
 }
 
-resource "aws_ecs_task_definition" "nodejs_app" {
+resource "aws_ecs_task_definition" "nodejs_app_task" {
   family = "nodejs-app"
   depends_on = [ aws_cloudwatch_log_group.ecs_logs ]
   network_mode             = "awsvpc"       # Required for Fargate
