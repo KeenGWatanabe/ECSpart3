@@ -49,7 +49,7 @@ resource "aws_ecs_task_definition" "nodejs_app_task" {
       ],
       "secrets" : [
         {
-          "name"      : "MONGO_URI",
+          "name"      : "MONGO_URI", # Populates process.env.MONGO_URI
           "valueFrom" : aws_secretsmanager_secret.taskmgr_pass.arn
         }
       ]
