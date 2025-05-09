@@ -1,13 +1,13 @@
 status: last update was dockerfile, may not be the case, "image failure investigation and (db_password duplication conflict)"
-# 1st terraform backend S3
+# 1ST TERRAFORM BACKEND S3
 run tf-backend
 https://github.com/KeenGWatanabe/tf-backend.git
 
-# 2nd terraform mongo uri secrets
+# 2ND TERRAFORM MONGO_URI SECRETS 
 input secrets via terraform first
 https://github.com/KeenGWatanabe/tf-secrets.git
 
-# 3rd terraform ecs (important to follow below sequence)
+# 3RD TERRAFORM ECS (important to follow below sequence)
 `Terraforming would run step 1-2, 1-2,5-10 from this repo`
 # 3.5 Container Orchestration w ECS2
 https://docs.google.com/document/d/1HkjQakCw2Db82e5dPbWzfqm_BnWK0xHMiWXixuojW4k/edit?tab=t.0
