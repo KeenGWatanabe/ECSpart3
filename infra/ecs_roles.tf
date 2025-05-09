@@ -58,7 +58,7 @@ resource "aws_iam_role_policy" "secrets_access" {
     Statement = [{
       Effect   = "Allow",
       Action   = ["secretsmanager:GetSecretValue"],
-      Resource = [aws_secretsmanager_secret.mongo_uri.arn] # "arn:aws:secretsmanager:*:1234567890:secret:db/mongo_uri*"
+      Resource = "arn:aws:secretsmanager:us-east-1:255945442255:secret:prod/mongodb_uri-GqnR0f" # [aws_secretsmanager_secret.mongo_uri.arn]
     }]
   })
 }
