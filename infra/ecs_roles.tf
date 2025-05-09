@@ -51,19 +51,22 @@ resource "aws_iam_role" "ecs_task_role" {
 }
 
 # Attach Secrets Manager read permissions to the ECS task role
-resource "aws_iam_role_policy" "ecs_secrets" {
+resource "aws_iam_role_policy" "secrets_access" {
   role   = aws_iam_role.ecs_task_execution_role.name
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
       Effect   = "Allow",
       Action   = ["secretsmanager:GetSecretValue"],
-      Resource = ["arn:aws:secretsmanager:*:1234567890:secret:db/mongo_uri*"] #aws_secretsmanager_secret.mongo_uri.arn
+      Resource = [aws_secretsmanager_secret.mongo_uri.arn] # "arn:aws:secretsmanager:*:1234567890:secret:db/mongo_uri*"
     }]
   })
 }
 
-
+# Reference the secret ARN from the Secrets Repo
+data "aws_secretsmanager_secret" "mongo_uri" {
+  name = aws_secretsmanager_secret.taskmgr_pass.name
+}
 
 
 resource "aws_iam_role_policy_attachment" "xray_access" {
