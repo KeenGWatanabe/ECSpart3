@@ -65,7 +65,7 @@ resource "aws_iam_role_policy" "secrets_access" {
 
 # Reference the secret ARN from the Secrets Repo
 data "aws_secretsmanager_secret" "mongo_uri" {
-  name = aws_secretsmanager_secret.taskmgr_pass.name
+  name = aws_secretsmanager_secret.dbpass.name
 }
 
 

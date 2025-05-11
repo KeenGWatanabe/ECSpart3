@@ -50,7 +50,7 @@ resource "aws_ecs_task_definition" "nodejs_app_task" {
       "secrets" : [
         {
           "name"      : "MONGO_URI", # Populates process.env.MONGO_URI
-          "valueFrom" : "arn:aws:secretsmanager:us-east-1:255945442255:secret:prod/mongodb_uri-GqnR0f" # aws_secretsmanager_secret.mongo_uri.arn
+          "valueFrom" : "arn:aws:secretsmanager:us-east-1:255945442255:secret:prod/mongodb_uri-4rOgx9" # aws_secretsmanager_secret.mongo_uri.arn output
         }
       ]
     },

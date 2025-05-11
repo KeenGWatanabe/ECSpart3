@@ -86,10 +86,6 @@ resource "aws_security_group" "ecs" {
   }
 }
 
-# --- ECR Repository ---
-resource "aws_ecr_repository" "app" {
-  name = "${local.prefix}-ecr"
- }
 
 # # --- SSM & Secrets Manager ---
 # resource "aws_ssm_parameter" "app_config" {
@@ -99,12 +95,12 @@ resource "aws_ecr_repository" "app" {
 #   #overwrite = true
 # }
 
-resource "aws_secretsmanager_secret" "taskmgr_pass" {
-  name = "/${local.prefix}/taskmgr_pass"
+resource "aws_secretsmanager_secret" "dbpass" {
+  name = "/${local.prefix}/dbpass"
 }
 
-resource "aws_secretsmanager_secret_version" "taskmgr_pass_version" {
-  secret_id     = aws_secretsmanager_secret.taskmgr_pass.id
+resource "aws_secretsmanager_secret_version" "dbpass_version" {
+  secret_id     = aws_secretsmanager_secret.dbpass.id
   secret_string = jsonencode({
     password = "P@ssw0rd"
   })
