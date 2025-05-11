@@ -1,6 +1,6 @@
 # create log grp /ecs/myapp-app
 locals {
-  log_group_name = "/ecs/${local.prefix}-app"  # Single source of truth
+  log_group_name = "/ecs/${var.name_prefix}-app"  # Single source of truth
 }
 
 # create log grp /ecs/myapp-app

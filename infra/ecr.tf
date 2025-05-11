@@ -10,3 +10,4 @@ image_scanning_configuration {
     create_before_destroy = true  # Helps with replacements
   }
 } 
+
