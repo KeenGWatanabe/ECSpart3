@@ -5,17 +5,18 @@ https://github.com/KeenGWatanabe/tf-backend.git
 
 # 2ND TERRAFORM MONGO_URI SECRETS 
 input secrets via terraform first
-https://github.com/KeenGWatanabe/tf-secrets.git
+https://github.com/KeenGWatanabe/tf-secrets.git 
+`record secrets output arn into this repo taskdef.tf line 53`
 
 # 3RD TERRAFORM ECS (important to follow below sequence)
 `Terraforming would run step 1-2, 1-2,5-10 from this repo`
 # 3.5 Container Orchestration w ECS2
-https://docs.google.com/document/d/1HkjQakCw2Db82e5dPbWzfqm_BnWK0xHMiWXixuojW4k/edit?tab=t.0
+https://docs.google.com/document/d/167Vqst1JtidQNDjlkAv4NlE8S5icXPRz3b0y7OQ6f2c/edit?tab=t.0#heading=h.lt4t5o2jhdz0
 
 # CHECK terraform step 5 - 10 (POSSIBLE ERROR IAM ECS exec_roles)
 1 cd /infra
 2 terraform init
-3 terraform apply -target=aws_ecr_repository.app
+3 terraform apply -target=aws_ecr_repository.app (proceed to step 3 push image)
 
 
 # if iam_role exists, else only run step 1,2 & 4
@@ -102,3 +103,4 @@ These steps in the AWS Console (ECS cluster > Services > Create) are for creatin
 Would you like help with any specific part (e.g., Task Definition, Load Balancer setup)?
 
 .
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 255945442255.dkr.ecr.us-east-1.amazonaws.com
