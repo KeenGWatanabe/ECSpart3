@@ -42,21 +42,21 @@ module "ecs" {
           name      = var.container_name #reused here
           essential = true
           image     = "${aws_ecr_repository.app.repository_url}:latest"
-          cpu       = 512
-          memory    = 1024 # Important: Add these dummy entries to prevent unknown values
+          cpu       = 256
+          memory    = 512 
           port_mappings = [
             {
-              containerPort = 8080
-              hostPort      = 8080
+              containerPort = 5000
+              hostPort      = 5000
               protocol     = "tcp"
             }
           ]
           
-          # Add required fields
-          environment = [] 
-          # secrets     = []
-          mount_points = []
-          volumes_from = []
+          # # Add required fields
+          # environment = [] 
+          # # secrets     = []
+          # mount_points = []
+          # volumes_from = []
         }
       }
       assign_public_ip                   = true

@@ -9,7 +9,7 @@ resource "aws_iam_role_policy" "ecr_pull" {
         "ecr:BatchCheckLayerAvailability"
       ],
       Effect   = "Allow",
-      Resource = "arn:aws:ecr:us-east-1:255945442255:repository/myapp-ecr"
+      Resource = "arn:aws:ecr:us-east-1:255945442255:repository/${var.name_prefix}-ecr"
     }]
   })
 }

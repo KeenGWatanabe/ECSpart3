@@ -7,5 +7,5 @@ variable "name_prefix" {
 variable "container_name" {
   description = "Name of the ECS container"
   type        = string
-  default     = "myapp-ecr"  # Default value (override when needed)
+  default     = "taskmgr-ecr"  # Default value (override when needed)
 }
